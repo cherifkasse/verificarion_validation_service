@@ -1,6 +1,5 @@
 package com.Verification_Validation_Service.model;
 
-import com.Verification_Validation_Service.validation.annotations.ValidCni;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,7 +24,6 @@ public class Signataire_V2 {
  private String nomSignataire;
 
  @NotBlank(message = "Le champ 'cni' est obligatoire")
- @ValidCni
  private String cni;
 
  private String codePin;

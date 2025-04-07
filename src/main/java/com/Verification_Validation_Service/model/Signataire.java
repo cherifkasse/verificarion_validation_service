@@ -1,5 +1,4 @@
 package com.Verification_Validation_Service.model;
-import com.Verification_Validation_Service.validation.annotations.ValidCni;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -45,7 +44,6 @@ public class Signataire {
     private String signerKey;
 
     @NotBlank(message = "Veuillez renseigner le CNI ou le passport!")
-    @ValidCni
     private String cniPassport;
 
     private boolean isDisabled;

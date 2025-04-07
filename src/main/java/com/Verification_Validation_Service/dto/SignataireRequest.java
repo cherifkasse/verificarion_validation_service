@@ -1,12 +1,8 @@
 package com.Verification_Validation_Service.dto;
 
-import com.Verification_Validation_Service.validation.annotations.ValidCni;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * @author : Mamadou Cherif KASSE
@@ -14,8 +10,6 @@ import lombok.Setter;
  * @email : mamadoucherifkasse@gmail.com
  * @created : 02/04/2025, mercredi
  */
-@Getter
-@Setter
 @NoArgsConstructor
 public class SignataireRequest {
 
@@ -86,8 +80,6 @@ public class SignataireRequest {
     private String password;
 
     @Schema(description = "Numéro de CNI ou du passport du signataire")
-    @ValidCni
-    @NotNull
     private String cniPassport;
 
     public SignataireRequest(Integer id, String applicationRattachee, String string, String prenom_nom,
@@ -122,5 +114,13 @@ public class SignataireRequest {
         this.email = email;
         this.categorie = categorie;
         this.nomEntreprise = nom_entreprise;
+    }
+
+    public String getCniPassport() {
+        return cniPassport;
+    }
+
+    public void setCniPassport(String cniPassport) {
+        this.cniPassport = cniPassport;
     }
 }
