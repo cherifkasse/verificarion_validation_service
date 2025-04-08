@@ -24,28 +24,19 @@ public class ValidationCniService {
     private Signataire_V2Repository signataireV2Repository;
 
 
-
-    // Méthode pour valider un CNI dans la table Signataire (Signataire pour le CE)
-    public void validateCniForSignataire(String cni) {
-        //Validation du format du cni
+    public void validateCni(String cni, boolean isCE) {
+        // Validation du format du CNI (null, vide, regex…)
         CniUtils.validateCniFormat(cni);
 
-        boolean existsInSignataire = signataireRepository.findByCniPassport(cni).isPresent();
+        //La variable isCE fait référence aux signataires enregistrés via le Centre d'Enregistrement
+        boolean exists = isCE
+                ? signataireRepository.findByCniPassport(cni).isPresent()
+                : signataireV2Repository.findByCni(cni).isPresent();
 
-        if (existsInSignataire) {
-            throw new CniAlreadyExistsException("Ce numéro CNI est déjà enregistré.");
+        if (exists) {
+            throw new CniAlreadyExistsException("Ce numéro CNI est déjà enregistré"
+                    + (isCE ? " pour CE." : "."));
         }
     }
 
-    // Méthode pour valider un CNI dans la table Signataire_V2 (Signer)
-    public void validateCniForSignataireV2(String cni) {
-        //Validation du format du cni
-        CniUtils.validateCniFormat(cni);
-
-        boolean existsInSignataireV2 = signataireV2Repository.findByCni(cni).isPresent();
-
-        if (existsInSignataireV2) {
-            throw new CniAlreadyExistsException("Ce numéro CNI est déjà enregistré.");
-        }
-    }
 }

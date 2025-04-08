@@ -13,20 +13,17 @@ import org.springframework.web.bind.annotation.*;
  * @created : 07/04/2025, lundi
  */
 @RestController
-@RequestMapping("/validationCni/")
+@RequestMapping("/validationCni")
 public class ValidationCniController {
     @Autowired
     private ValidationCniService validationService;
 
-    @PostMapping("cni/signataire_CE/{cni}")
-    public ResponseEntity<String> validateSignataireV1(@PathVariable String cni) {
-        validationService.validateCniForSignataire(cni);
-        return ResponseEntity.status(HttpStatus.OK).body("CNI Valide.");
-    }
+    @PostMapping("/{cni}")
+    public ResponseEntity<String> validateCni(
+            @PathVariable String cni,
+            @RequestParam(defaultValue = "false") boolean isCE) {
 
-    @PostMapping("cni/signataire/{cni}")
-    public ResponseEntity<String> validateSignataireV2(@PathVariable String cni) {
-        validationService.validateCniForSignataireV2(cni);
-        return ResponseEntity.status(HttpStatus.OK).body("CNI Valide.");
+        validationService.validateCni(cni, isCE);
+        return ResponseEntity.ok("CNI Valide.");
     }
 }
