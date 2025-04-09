@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/validationCni")
 public class ValidationCniController {
-    @Autowired
-    private ValidationCniService validationService;
+
+    private final ValidationCniService validationService;
+
+    public ValidationCniController(ValidationCniService validationService) {
+        this.validationService = validationService;
+    }
 
     @PostMapping("/{cni}")
-    public ResponseEntity<String> validateCni(
+    public ResponseEntity<?> validateCni(
             @PathVariable String cni,
             @RequestParam(defaultValue = "false") boolean isCE) {
 
